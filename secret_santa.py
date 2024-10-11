@@ -116,16 +116,29 @@ class SecretSantaGenerator :
       :param output_file: Path to the output Excel file (.xlsx).
       """
       try:
+          
+          # Deleting if any of the older versions of the output file exists
+          if os.path.exists(output_file):
+            print(f"Deleting old file: {output_file}")
+            os.remove(output_file)
+
           # Create a new workbook and select the active sheet
           workbook = openpyxl.Workbook()
           sheet = workbook.active
 
           # Let's highlight the header
-          header_fill = PatternFill(start_color='FFFF00', end_color='FFFF00', fill_type='solid')  # Yellow fill
-          header_font = Font(bold=True)  # Bold font for headers
+          header_fill = PatternFill(start_color='FFFF00', end_color='FFFF00', fill_type='solid')  
+          header_font = Font(bold=True)
           center_alignment = Alignment(horizontal='center', vertical='center')
-          # Write the header row
-          sheet.append(['Employee_Name', 'Employee_EmailID', 'Secret_Child_Name', 'Secret_Child_EmailID'])
+
+          headers = ['Employee_Name', 'Employee_EmailID', 'Secret_Child_Name', 'Secret_Child_EmailID']
+          sheet.append(headers)
+
+          for col_num, header in enumerate(headers, 1):
+            cell = sheet.cell(row=1, column=col_num)
+            cell.fill = header_fill
+            cell.font = header_font
+            cell.alignment = center_alignment
 
           # Write the secret_santa_pair rows
           for secret_santa_pair in secret_santas:
@@ -135,8 +148,21 @@ class SecretSantaGenerator :
                   secret_santa_pair['Secret_Child_Name'],
                   secret_santa_pair['Secret_Child_EmailID']
               ])
+          for col in sheet.columns:
+            column_len = 0
+            column = col[0].column_letter  
+            for cell in col:
+                try:
+                    if cell.value:
+                        column_len = max(column_len, len(str(cell.value)))
+                except:
+                    pass
+            
+            column_cwidth = column_len + 2  
+            sheet.column_dimensions[column].width = column_cwidth
 
-          # Save the workbook to the specified output file
+
+          # Saving the output data to the specified output file
           workbook.save(output_file)
           print(f"Secret santas saved to {output_file}")
       
