@@ -2,6 +2,7 @@
 import openpyxl
 import subprocess
 import sys
+import random
 import os
 
 
@@ -15,6 +16,44 @@ class SecretSantaGenerator :
       self.setup_virtual_environment()
       self.employees = self.read_from_xlsx(employee_list_filepath)
       self.previous_secret_santas = self.read_from_xlsx(previous_secret_santas_filepath)
+      self.new_secret_santas = self.alot_new_secret_santas()
+
+
+    def alot_new_secret_santas(self):
+       
+      """
+        with the extracted data the new secret santas are generated.
+        :param employees list & previous year's secret santas
+        :return list of new secret santas after applying all the required constraints
+
+      """
+      print("Findinh new Secret Santas .....")
+      employee_list = self.employees[:]
+      new_secret_santas = []
+
+      for employee in self.employees:
+          # Create a list of possible children (exclude the employee themselves and previous pairings)
+          possible_children = [e for e in employee_list 
+                                if e['Employee_EmailID'] != employee['Employee_EmailID'] and
+                                (employee['Employee_EmailID'], e['Employee_EmailID']) not in self.previous_secret_santas]
+
+          if not possible_children:
+              raise NotImplementedError(f"No Secret Child available for {employee['Employee_Name']}")
+          
+          # Randomly choose a secret child from the possible candidates
+          secret_child = random.choice(possible_children)
+          employee_list.remove(secret_child)  # Ensure the secret child is not reused
+
+          new_secret_santas.append({
+              'Employee_Name': employee['Employee_Name'],
+              'Employee_EmailID': employee['Employee_EmailID'],
+              'Secret_Child_Name': secret_child['Employee_Name'],
+              'Secret_Child_EmailID': secret_child['Employee_EmailID']
+          })
+
+      return new_secret_santas
+
+
       
     def setup_virtual_environment(self):
       """
@@ -67,14 +106,6 @@ class SecretSantaGenerator :
         except FileNotFoundError:
             print(f"Error: The file {file_path} was not found.")
             return []
-
-
-
-
-
-
-
-
 
 
 def letsPlaySecretSanta ():
