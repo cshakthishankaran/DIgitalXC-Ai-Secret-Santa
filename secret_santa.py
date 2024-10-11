@@ -12,11 +12,11 @@ class SecretSantaGenerator :
 
     pass
 
-    def __init__(self, employee_list_filepath,previous_secret_santas_filepath):
+    def __init__(self, employee_list_filepath="",previous_secret_santas_filepath=""):
        
       self.setup_virtual_environment()
-      self.employees = self.read_from_xlsx(employee_list_filepath)
-      self.previous_secret_santas = self.read_from_xlsx(previous_secret_santas_filepath)      
+      self.employees = self.read_from_xlsx(employee_list_filepath) if employee_list_filepath!="" else []
+      self.previous_secret_santas = self.read_from_xlsx(previous_secret_santas_filepath)  if previous_secret_santas_filepath!="" else []
       
 
 
