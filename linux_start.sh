@@ -18,6 +18,13 @@ pip install openpyxl
 echo "Running secret_santa.py..."
 python3 secret_santa.py
 
+
+# Run the Test script
+echo "Running secret_santa_tests.py..."
+python3 secret_santa_tests.py
+
+
+
 # Deactivate the virtual environment after execution
 echo "Deactivating virtual environment..."
 deactivate

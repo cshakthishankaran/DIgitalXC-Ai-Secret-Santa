@@ -17,6 +17,10 @@ REM Run the Python script
 echo Running secret_santa.py...
 py secret_santa.py
 
+REM Run the Python TEst script
+echo Running secret_santa_tests.py...
+py secret_santa_tests.py
+
 REM Deactivate the virtual environment after execution
 echo Deactivating virtual environment...
 deactivate
