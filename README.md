@@ -40,6 +40,7 @@ Features
     -----------------
 
     secret_santa.py: Main script for running the Secret Santa game.
+    secret_santa_tests.py: Test Script for the Secret Santa game.
     Employee-List.xlsx: Excel file containing the current list of employees (name and email).
     Secret-Santa-Game-Result-2023.xlsx: Excel file containing last year’s Secret Santa assignments.
     secret-santa-2024.xlsx: The output file containing this year's Secret Santa assignments.
