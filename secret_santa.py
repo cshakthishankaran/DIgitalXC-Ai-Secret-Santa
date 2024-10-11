@@ -15,8 +15,8 @@ class SecretSantaGenerator :
        
       self.setup_virtual_environment()
       self.employees = self.read_from_xlsx(employee_list_filepath)
-      self.previous_secret_santas = self.read_from_xlsx(previous_secret_santas_filepath)
-      self.new_secret_santas = self.alot_new_secret_santas()
+      self.previous_secret_santas = self.read_from_xlsx(previous_secret_santas_filepath)      
+      
 
 
     def alot_new_secret_santas(self):
@@ -106,6 +106,37 @@ class SecretSantaGenerator :
         except FileNotFoundError:
             print(f"Error: The file {file_path} was not found.")
             return []
+        
+    def write_to_xlsx(self, output_file, secret_santas):
+      """
+      Writes the new secret santa info to a new Excel (.xlsx) file.
+
+      :param output_file: Path to the output Excel file (.xlsx).
+      """
+      try:
+          # Create a new workbook and select the active sheet
+          workbook = openpyxl.Workbook()
+          sheet = workbook.active
+
+          # Write the header row
+          sheet.append(['Employee_Name', 'Employee_EmailID', 'Secret_Child_Name', 'Secret_Child_EmailID'])
+
+          # Write the secret_santa_pair rows
+          for secret_santa_pair in secret_santas:
+              sheet.append([
+                  secret_santa_pair['Employee_Name'],
+                  secret_santa_pair['Employee_EmailID'],
+                  secret_santa_pair['Secret_Child_Name'],
+                  secret_santa_pair['Secret_Child_EmailID']
+              ])
+
+          # Save the workbook to the specified output file
+          workbook.save(output_file)
+          print(f"Secret santas saved to {output_file}")
+      
+      except Exception as e:
+          print(f"Error writing to file {output_file}: {str(e)}")
+    
 
 
 def letsPlaySecretSanta ():
@@ -124,7 +155,9 @@ def letsPlaySecretSanta ():
   previous_secret_santas_filepath = "Secret-Santa-Game-Result-2023.xlsx"
   new_secret_santas_filepath = "Secret-Santa-Game-Result-2024.xlsx"
 
-  secret_santa_generator = SecretSantaGenerator(employee_list_filepath,previous_secret_santas_filepath)
+  secret_santa_generator = SecretSantaGenerator(employee_list_filepath,previous_secret_santas_filepath)  
+  secret_santas = secret_santa_generator.alot_new_secret_santas()
+  secret_santa_generator.write_to_xlsx("secret-santa-2024.xlsx",secret_santas)
 
 
 
