@@ -3,6 +3,7 @@ import openpyxl
 import subprocess
 import sys
 import random
+from openpyxl.styles import Alignment, PatternFill, Font
 import os
 
 
@@ -119,6 +120,10 @@ class SecretSantaGenerator :
           workbook = openpyxl.Workbook()
           sheet = workbook.active
 
+          # Let's highlight the header
+          header_fill = PatternFill(start_color='FFFF00', end_color='FFFF00', fill_type='solid')  # Yellow fill
+          header_font = Font(bold=True)  # Bold font for headers
+          center_alignment = Alignment(horizontal='center', vertical='center')
           # Write the header row
           sheet.append(['Employee_Name', 'Employee_EmailID', 'Secret_Child_Name', 'Secret_Child_EmailID'])
 
