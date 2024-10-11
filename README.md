@@ -17,6 +17,9 @@ TO EXECUTE THE CODE :
 
         run "linux_start.sh" file through terminal
 
+    --> GENERATES AN OUTPUT FILE , secret-santa-2024.xlsx
+    
+
 *******************************************************************
 
 Features
