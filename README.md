@@ -1,6 +1,8 @@
 Secret Santa Game
 Overview
-This project automates the process of assigning Secret Santa pairings for employees in a company. It reads employee data and previous year's Secret Santa assignments from Excel files (.xlsx), assigns a unique Secret Child to each employee, and outputs the result to a new Excel file.
+This project automates the process of assigning Secret Santa pairings for employees in a company. 
+It reads employee data and previous year's Secret Santa assignments from Excel files (.xlsx), 
+assigns a unique Secret Child to each employee, and outputs the result to a new Excel file.
 
 
 ******************************************************************
@@ -28,11 +30,14 @@ Features
 
     Prerequisites
     --------
-Python 3.x
-openpyxl library (for reading and writing Excel files)
-Project Structure
-secret_santa.py: Main script for running the Secret Santa game.
-Employee-List.xlsx: Excel file containing the current list of employees (name and email).
-Secret-Santa-Game-Result-2023.xlsx: Excel file containing last year’s Secret Santa assignments.
-secret_santa_assignments.xlsx: The output file containing this year's Secret Santa assignments.
-requirements.txt: Lists the project dependencies.
+    Python 3.x
+    openpyxl library (for reading and writing Excel files)
+
+    Project Structure
+    -----------------
+
+    secret_santa.py: Main script for running the Secret Santa game.
+    Employee-List.xlsx: Excel file containing the current list of employees (name and email).
+    Secret-Santa-Game-Result-2023.xlsx: Excel file containing last year’s Secret Santa assignments.
+    secret-santa-2024.xlsx: The output file containing this year's Secret Santa assignments.
+    requirements.txt: Lists the project dependencies.
