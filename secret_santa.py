@@ -30,7 +30,8 @@ class SecretSantaGenerator :
       print("Findinh new Secret Santas .....")
       employee_list = self.employees[:]
       new_secret_santas = []
-
+      self.previous_secret_santas = {(entry['Employee_EmailID'], entry['Secret_Child_EmailID']) 
+                           for entry in self.previous_secret_santas}
       for employee in self.employees:
           # Create a list of possible children (exclude the employee themselves and previous pairings)
           possible_children = [e for e in employee_list 
