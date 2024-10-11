@@ -1,5 +1,9 @@
 
 import openpyxl
+import subprocess
+import sys
+import os
+
 
 
 class SecretSantaGenerator :
@@ -8,16 +12,45 @@ class SecretSantaGenerator :
 
     def __init__(self, employee_list_filepath,previous_secret_santas_filepath):
        
-       
-      self.employees = self.read_xlsx(employee_list_filepath)
-      self.previous_secret_santas = self.read_xlsx(previous_secret_santas_filepath)
+      self.setup_virtual_environment()
+      self.employees = self.read_from_xlsx(employee_list_filepath)
+      self.previous_secret_santas = self.read_from_xlsx(previous_secret_santas_filepath)
       
+    def setup_virtual_environment(self):
+      """
+      Checks if the virtual environment exists. If not, creates it 
+      installs the required dependencies.
+
+      """
+      env_dir = 'env'
+      
+      # Checking if the virtual environment already exists
+      if not os.path.exists(env_dir):
+          print("No Virtual Environment available. Creating a virtual environment , sit back and relax ...")          
+          
+          # Create virtual environment with kernel command
+          subprocess.check_call([sys.executable, '-m', 'venv', env_dir])
+          print("Virtual environment created successfully.")
+
+          
+
+      
+      requirements_file = 'requirements.txt'
+
+       
+      if os.path.exists(requirements_file):
+          # Installing dependencies from requirements.txt
+          print("Installing dependencies from requirements.txt...")
+          subprocess.check_call([os.path.join(env_dir, 'Scripts', 'pip') if os.name == 'nt' else os.path.join(env_dir, 'bin', 'pip'), 'install', '-r', requirements_file])
+          print("Dependencies installed successfully.")
+      else:
+          print(f"No {requirements_file} found. Please make sure you have the required dependencies file.")
 
 
-    def read_xlsx(self, file_path):
-        
+    def read_from_xlsx(self, file_path):
+              
         """
-        Reads an Excel file and returns a list of dictionaries, where each row is a dictionary.
+        Examines the xlsx file from the file path provided
         
         :param file_path: Path to the Excel file
         :return: List of dictionaries representing the data in the Excel file
@@ -59,6 +92,10 @@ def letsPlaySecretSanta ():
   employee_list_filepath = "Employee-List.xlsx"
   previous_secret_santas_filepath = "Secret-Santa-Game-Result-2023.xlsx"
   new_secret_santas_filepath = "Secret-Santa-Game-Result-2024.xlsx"
+
+  secret_santa_generator = SecretSantaGenerator(employee_list_filepath,previous_secret_santas_filepath)
+
+
 
 
 
