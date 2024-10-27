@@ -23,6 +23,10 @@ python3 secret_santa.py
 echo "Running secret_santa_tests.py..."
 python3 secret_santa_tests.py
 
+python3 tests/employee_test.py
+python3 tests/file_handler_test.py
+python3 tests/secret_santa_assignment_test.py
+
 
 
 # Deactivate the virtual environment after execution
