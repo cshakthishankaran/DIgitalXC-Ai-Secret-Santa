@@ -1,5 +1,3 @@
-# employee.py
-
 class Employee:
     """Class representing an employee."""
     def __init__(self, name: str, email: str):

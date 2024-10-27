@@ -1,7 +1,6 @@
-# file_handler.py
-
 import pandas as pd
-from typing import List  # Add this line to import List type
+from typing import List  
+# Add this line to import List type Since this another List class needed to set the return type 
 from employee import Employee
 
 class FileHandler:
